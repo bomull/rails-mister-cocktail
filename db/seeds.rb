@@ -36,8 +36,15 @@ puts 'destroyed all cocktails'
 
 puts 'creating new cocktails'
 
-images = Dir.entries('app/assets/images')
-images = images[2..-1]
+images = ["champagne.svg",
+          "cocktail2.svg",
+          "esp_martini.svg",
+          "cocktail1.svg",
+          "cocktail4.svg",
+          "highball.svg",
+          "cosmo.svg",
+          "tumbler.svg",
+          "cocktail3.svg"]
 
 counter = 0
 rand(15..25).times do
@@ -55,6 +62,5 @@ counter.times do |n|
     Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[n])
   end
 end
-
 
 puts 'created new doses'

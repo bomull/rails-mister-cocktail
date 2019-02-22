@@ -21,12 +21,10 @@ puts 'Creating records'
 url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
 ingredients_serialized = open(url).read
 ingredients = JSON.parse(ingredients_serialized)
-# p(ingredients.flatten.map { |x| x.values })
+
 
 ingredients['drinks'].each do |i|
-  # p i
   ing = Ingredient.new(name: i["strIngredient1"])
-  # p i["strIngredient1"]
   ing.save!
 end
 
@@ -37,36 +35,18 @@ Cocktail.destroy_all
 puts 'destroyed all cocktails'
 
 puts 'creating new cocktails'
-p Dir.pwd
+
+images = Dir.entries('app/assets/images')
+images = images[2..-1]
 
 counter = 0
-images = Dir.entries('app/assets/images')[2..-1]
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-p images.sample
-
 rand(15..25).times do
   Cocktail.create(name: "The #{Faker::Hipster.unique.word.capitalize}", image: "#{images.sample}")
   counter += 1
 end
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
-# Cocktail.create(name: "The #{Faker::Hipster.unique.word}")
 puts 'created some new cocktails'
 
 units = ["ml", "cl", "dl", "liters", "sprinkles", "dashes", "spoonfuls"]
-# amounts = [2, 3, 4, 5, 6, "enough", "lots", "a bunch"]
 cocktail = Cocktail.all
 
 puts 'creating new doses'
@@ -75,37 +55,6 @@ counter.times do |n|
     Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[n])
   end
 end
-
-
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.first)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.first)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.first)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.second)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.second)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.second)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.third)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.third)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.third)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fourth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fourth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fourth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fourth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fifth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: Cocktail.fifth)
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[6])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[6])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[6])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[7])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[8])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[8])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[8])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[8])
-# Dose.create(description: "#{rand(2..6)} #{units.sample}", ingredient: Ingredient.order("RANDOM()").first, cocktail: cocktail[8])
 
 
 puts 'created new doses'

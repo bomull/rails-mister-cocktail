@@ -1,0 +1,30 @@
+<div class="page_container">
+  <%= render "shared/navbarx" %>
+  <div class="main_content">
+    <div>
+      <h1><%= @cocktail.name %></h1>
+
+      <div>
+        <ul>
+          <% @doses.each do |d| %>
+            <li><%= d.description %> of <%= d.ingredient.name %></li>
+
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+    <h3>Add ingredient:</h3>
+
+      <%= simple_form_for ([@cocktail, @dose]) do |f| -%>
+        <%= f.input :description %>
+        <%= f.association :ingredient%>
+        <%= f.submit "Add ingredient to recipe" %>
+
+      <% end -%>
+
+      <%= link_to("Back to index", cocktails_path) %>
+    </div>
+  </div>
+</div>
